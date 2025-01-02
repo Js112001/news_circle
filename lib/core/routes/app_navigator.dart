@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:news_circle/modules/articles/presentation/views/home_view.dart';
+import 'package:news_circle/modules/news/presentation/views/home_view.dart';
 
 class AppNavigator {
   GoRouter setupRouter() {

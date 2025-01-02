@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key, required this.title});
+
   final String title;
 
   @override
@@ -10,6 +11,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int _counter = 0;
+  List<String> categories = ['Top Headlines', 'Technology', 'Sports'];
 
   void _incrementCounter() {
     setState(() {
@@ -24,19 +26,26 @@ class _HomeViewState extends State<HomeView> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+      body: ListView.builder(
+        itemCount: categories.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            child: GestureDetector(
+              onTap: () {},
+              child: Card(
+                surfaceTintColor: Colors.amberAccent,
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    categories[index],
+                    style: TextStyle(fontSize: 22),
+                  ),
+                ),
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
