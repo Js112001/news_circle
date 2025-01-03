@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_circle/core/di/injection_container.dart';
 import 'package:news_circle/core/routes/app_navigator.dart';
+import 'package:news_circle/modules/news/presentation/blocs/home_bloc.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -16,7 +19,14 @@ class App extends StatelessWidget {
       ),
       routerConfig: router,
       builder: (context, child) {
-        return child!;
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider<HomeBloc>(
+              create: (context) => sl(),
+            )
+          ],
+          child: child!,
+        );
       },
     );
   }
