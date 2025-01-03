@@ -7,6 +7,9 @@ import 'package:news_circle/modules/news/domain/entities/article_entity.dart';
 import 'package:news_circle/modules/news/presentation/blocs/home_bloc.dart';
 import 'package:news_circle/modules/news/presentation/views/article_detail_view.dart';
 import 'package:news_circle/modules/news/presentation/views/home_view.dart';
+import 'package:news_circle/modules/news/presentation/widgets/loading_widget.dart';
+import 'package:news_circle/modules/news/presentation/widgets/news_card_widget.dart';
+import 'package:news_circle/modules/news/presentation/widgets/retry_widget.dart';
 import 'package:news_circle/utils/enums.dart';
 import 'package:news_circle/utils/extensions.dart';
 
@@ -45,6 +48,10 @@ class _ArticlesListingViewState extends State<ArticlesListingView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+          '${widget.articleCategory.toCategoryString().capitalize()} articles',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
         actions: [
           IconButton(
             onPressed: () {
@@ -60,14 +67,7 @@ class _ArticlesListingViewState extends State<ArticlesListingView> {
       body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           if (state is InitialState || state is LoadingState) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircularProgressIndicator(),
-                ],
-              ),
-            );
+            return LoadingWidget();
           } else if (state is GetArticleSuccessState) {
             articles.addAll(state.articles);
             scrollController = ScrollController();
@@ -81,6 +81,7 @@ class _ArticlesListingViewState extends State<ArticlesListingView> {
                   ),
                 );
               },
+              color: Theme.of(context).colorScheme.onPrimary,
               child: Column(
                 spacing: 20,
                 children: [
@@ -91,7 +92,7 @@ class _ArticlesListingViewState extends State<ArticlesListingView> {
                       itemBuilder: (context, index) {
                         var isDisabled = articles[index].content == null ||
                             articles[index].content == '[Removed]';
-                        return InkWell(
+                        return NewsCardWidget(
                           onTap: isDisabled
                               ? null
                               : () {
@@ -103,95 +104,25 @@ class _ArticlesListingViewState extends State<ArticlesListingView> {
                                     },
                                   );
                                 },
-                          child: Card(
-                            elevation: 4,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                spacing: 16,
-                                children: [
-                                  SizedBox(
-                                    width: 100,
-                                    height: 120,
-                                    child: articles[index].urlToImage != null &&
-                                            articles[index]
-                                                .urlToImage!
-                                                .isNotEmpty
-                                        ? Image.network(
-                                            articles[index].urlToImage!,
-                                            fit: BoxFit.cover,
-                                            errorBuilder:
-                                                (context, error, stackTrace) {
-                                              return const Icon(Icons.image);
-                                            },
-                                          )
-                                        : const Icon(Icons.image),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      spacing: 8,
-                                      children: [
-                                        Text(
-                                          articles[index].title ??
-                                              'Unknown Title',
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            color:
-                                                isDisabled ? Colors.grey : null,
-                                          ),
-                                        ),
-                                        Text(
-                                          articles[index].description ??
-                                              'Description Not Available',
-                                          maxLines: 2,
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color:
-                                                isDisabled ? Colors.grey : null,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                          article: articles[index],
+                          isDisabled: isDisabled,
                         );
                       },
                     ),
                   ),
-                  if (state.isPaginated)
-                    Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                  if (state.isPaginated) LoadingWidget(),
                 ],
               ),
             );
           }
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              spacing: 10,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    BlocProvider.of<HomeBloc>(context)
-                        .add(GetArticleEvent(category: 'business'));
-                  },
-                  child: Icon(
-                    Icons.refresh,
-                    size: 60,
-                    color: Colors.black,
-                  ),
+          return RetryWidget(
+            onRetry: () {
+              BlocProvider.of<HomeBloc>(context).add(
+                GetArticleEvent(
+                  category: widget.articleCategory.toCategoryString(),
                 ),
-                Text("Something went wrong. Try again"),
-              ],
-            ),
+              );
+            },
           );
         },
       ),

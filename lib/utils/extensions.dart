@@ -14,3 +14,13 @@ extension ArticleCategoryExtensions on ArticleCategory {
     }
   }
 }
+
+extension StringExtensions on String {
+  String capitalize() {
+    final firstChar = this[0].toUpperCase();
+
+    final result = firstChar + substring(1);
+
+    return result;
+  }
+}

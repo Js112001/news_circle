@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_circle/core/di/injection_container.dart';
 import 'package:news_circle/core/routes/app_navigator.dart';
+import 'package:news_circle/core/themes/theme.dart';
 import 'package:news_circle/modules/news/presentation/blocs/home_bloc.dart';
 
 class App extends StatelessWidget {
@@ -13,10 +14,7 @@ class App extends StatelessWidget {
 
     return MaterialApp.router(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white60),
-        useMaterial3: true,
-      ),
+      theme: CustomTheme.darkThemeData,
       routerConfig: router,
       builder: (context, child) {
         return MultiBlocProvider(

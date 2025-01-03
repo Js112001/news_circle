@@ -3,6 +3,7 @@ import 'package:news_circle/core/routes/app_navigator.dart';
 import 'package:news_circle/modules/news/domain/entities/article_entity.dart';
 import 'package:news_circle/modules/news/presentation/views/article_web_view.dart';
 import 'package:news_circle/modules/news/presentation/views/home_view.dart';
+import 'package:news_circle/utils/extensions.dart';
 
 class ArticleDetailView extends StatelessWidget {
   const ArticleDetailView({
@@ -17,14 +18,23 @@ class ArticleDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(actions: [
-        IconButton(
-          onPressed: () {
-            AppNavigator.pushPathReplacement(context, HomeView.route);
-          },
-          icon: Icon(Icons.house_outlined, size: 30,),
+      appBar: AppBar(
+        title: Text(
+          'article detail'.capitalize(),
+          style: Theme.of(context).textTheme.titleLarge,
         ),
-      ],),
+        actions: [
+          IconButton(
+            onPressed: () {
+              AppNavigator.pushPathReplacement(context, HomeView.route);
+            },
+            icon: Icon(
+              Icons.house_outlined,
+              size: 30,
+            ),
+          ),
+        ],
+      ),
       body: Column(
         spacing: 10,
         children: [
@@ -42,19 +52,16 @@ class ArticleDetailView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               article.title ?? 'No Title',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               article.content ?? 'No Content Available',
-              style: TextStyle(
-                fontSize: 18,
-              ),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Colors.white70,
+                  ),
             ),
           ),
           if (article.url != null && article.url!.isNotEmpty)
@@ -72,10 +79,11 @@ class ArticleDetailView extends StatelessWidget {
                 },
                 child: Text(
                   'Read more',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontStyle: FontStyle.normal,
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontSize: 18,
+                        decoration: TextDecoration.underline,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                 ),
               ),
             )
