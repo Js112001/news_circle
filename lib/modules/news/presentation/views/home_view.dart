@@ -39,13 +39,34 @@ class _HomeViewState extends State<HomeView> {
                   },
                 );
               },
-              child: Card(
-                surfaceTintColor: Colors.amberAccent,
+              child: Container(
+                height: 100,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  gradient: LinearGradient(
+                    colors: [
+                      Theme.of(context).colorScheme.primary,
+                      Theme.of(context).colorScheme.secondary,
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
                 child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Text(
-                    categories[index],
-                    style: TextStyle(fontSize: 22),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        categories[index],
+                        style: TextStyle(fontSize: 22),
+                      ),
+                      Icon(Icons.arrow_circle_right_rounded)
+                    ],
                   ),
                 ),
               ),
@@ -83,7 +104,7 @@ class _HomeViewState extends State<HomeView> {
   }
 
   ArticleCategory _getArticleCategory(String category) {
-    switch(category) {
+    switch (category) {
       case 'Top Headlines':
         return ArticleCategory.all;
       case 'Technology':

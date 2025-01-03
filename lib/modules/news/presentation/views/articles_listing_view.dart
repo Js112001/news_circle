@@ -92,20 +92,23 @@ class _ArticlesListingViewState extends State<ArticlesListingView> {
                       itemBuilder: (context, index) {
                         var isDisabled = articles[index].content == null ||
                             articles[index].content == '[Removed]';
-                        return NewsCardWidget(
-                          onTap: isDisabled
-                              ? null
-                              : () {
-                                  AppNavigator.pushPath(
-                                    context,
-                                    ArticleDetailView.route,
-                                    extra: {
-                                      'article': articles[index],
-                                    },
-                                  );
-                                },
-                          article: articles[index],
-                          isDisabled: isDisabled,
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          child: NewsCardWidget(
+                            onTap: isDisabled
+                                ? null
+                                : () {
+                                    AppNavigator.pushPath(
+                                      context,
+                                      ArticleDetailView.route,
+                                      extra: {
+                                        'article': articles[index],
+                                      },
+                                    );
+                                  },
+                            article: articles[index],
+                            isDisabled: isDisabled,
+                          ),
                         );
                       },
                     ),
