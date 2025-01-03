@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:news_circle/modules/news/data/models/article_response_model.dart';
 import 'package:news_circle/utils/app_logger.dart';
+import 'package:news_circle/utils/constants.dart';
 
 abstract class NewsApiService {
   Future<List<ArticleResponseModel>> getArticles({
@@ -10,17 +12,19 @@ abstract class NewsApiService {
 }
 
 class NewsApiServiceImpl extends NewsApiService {
+  final Dio _dio;
+
+  NewsApiServiceImpl(this._dio);
+
   @override
   Future<List<ArticleResponseModel>> getArticles({
     String? category,
     int? page,
   }) async {
     try {
-      AppLogger.i('[Category]: $category');
-      var dio = Dio();
       var queryParameters = {
         "country": "us",
-        "apiKey": "15ce380fe73a468b8e1e888c6a8b05a4",
+        "apiKey": "${dotenv.env['NEWS_API_KEY']}",
         "pageSize": 10,
         "page": '$page',
       };
@@ -28,8 +32,8 @@ class NewsApiServiceImpl extends NewsApiService {
       if (category != null && category != 'all') {
         queryParameters.addAll({"category": category});
       }
-      var response = await dio.request(
-        'https://newsapi.org/v2/top-headlines',
+      var response = await _dio.request(
+        '${StringConstants.baseNewsApiUrl}/top-headlines',
         options: Options(
           method: 'GET',
         ),

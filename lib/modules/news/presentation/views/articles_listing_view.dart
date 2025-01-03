@@ -34,14 +34,14 @@ class _ArticlesListingViewState extends State<ArticlesListingView> {
   var page = 1;
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
     BlocProvider.of<HomeBloc>(context).add(
       GetArticleEvent(
         category: widget.articleCategory.toCategoryString(),
         page: page,
       ),
     );
+    super.didChangeDependencies();
   }
 
   @override

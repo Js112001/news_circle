@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_circle/core/routes/app_navigator.dart';
 import 'package:news_circle/modules/news/presentation/views/home_view.dart';
+import 'package:news_circle/modules/news/presentation/widgets/loading_widget.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class ArticleWebView extends StatefulWidget {
@@ -50,17 +51,15 @@ class _ArticleWebViewState extends State<ArticleWebView> {
             onPressed: () {
               AppNavigator.pushPathReplacement(context, HomeView.route);
             },
-            icon: Icon(Icons.house_outlined, size: 30,),
+            icon: Icon(
+              Icons.house_outlined,
+              size: 30,
+            ),
           ),
         ],
       ),
       body: isLoading
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(child: CircularProgressIndicator()),
-              ],
-            )
+          ? LoadingWidget()
           : WebViewWidget(
               controller: controller,
             ),
