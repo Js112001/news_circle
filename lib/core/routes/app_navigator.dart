@@ -1,4 +1,5 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:news_circle/modules/news/presentation/views/article_detail_view.dart';
 import 'package:news_circle/modules/news/presentation/views/article_web_view.dart';
@@ -19,19 +20,23 @@ class AppNavigator {
         ),
         GoRoute(
           path: '/${ArticlesListingView.route}',
-          builder: (context, state) {
+          pageBuilder: (context, state) {
             final extra = state.extra as Map<String, dynamic>;
-            return ArticlesListingView(
-              articleCategory: extra['articleCategory'],
+            return CupertinoPage(
+              child: ArticlesListingView(
+                articleCategory: extra['articleCategory'],
+              ),
             );
           },
         ),
         GoRoute(
           path: '/${ArticleDetailView.route}',
-          builder: (context, state) {
+          pageBuilder: (context, state) {
             final extra = state.extra as Map<String, dynamic>;
-            return ArticleDetailView(
-              article: extra['article'],
+            return MaterialPage(
+              child: ArticleDetailView(
+                article: extra['article'],
+              ),
             );
           },
         ),
