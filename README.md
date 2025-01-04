@@ -20,6 +20,7 @@ Step 4: Run the app<br/>
 ## Planned Features
 
 - Add feature to save articles offline
+- Add feature to search articles
 - Add settings/preferences to change theme & font size
 
 ## Demo
