@@ -1,11 +1,14 @@
-
 import 'package:news_circle/modules/news/domain/entities/source_entity.dart';
+import 'package:equatable/equatable.dart';
 
-class ArticleEntity {
+class ArticleEntity extends Equatable {
+  final int? id;
   final String? status;
   final String? code;
   final String? message;
   final SourceEntity? source;
+  final int? source_id;
+  final String? source_name;
   final String? author;
   final String? title;
   final String? description;
@@ -15,10 +18,13 @@ class ArticleEntity {
   final String? content;
 
   ArticleEntity({
+    this.id,
     this.status,
     this.code,
     this.message,
     this.source,
+    this.source_id,
+    this.source_name,
     this.author,
     this.title,
     this.description,
@@ -29,10 +35,13 @@ class ArticleEntity {
   });
 
   ArticleEntity copyWith({
+    int? id,
     String? status,
     String? code,
     String? message,
     SourceEntity? source,
+    int? source_id,
+    String? source_name,
     String? author,
     String? title,
     String? description,
@@ -42,10 +51,13 @@ class ArticleEntity {
     String? content,
   }) =>
       ArticleEntity(
+        id: id,
         status: status ?? this.status,
         code: code ?? this.code,
         message: message ?? this.message,
         source: source ?? this.source,
+        source_id: source_id ?? this.source_id,
+        source_name: source_name ?? this.source_name,
         author: author ?? this.author,
         title: title ?? this.title,
         description: description ?? this.description,
@@ -55,4 +67,33 @@ class ArticleEntity {
         content: content ?? this.content,
       );
 
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "status": status,
+        "code": code,
+        "message": message,
+        "source": source,
+        "author": author,
+        "title": title,
+        "description": description,
+        "url": url,
+        "urlToImage": urlToImage,
+        "publishedAt": publishedAt,
+        "content": content,
+      };
+
+  @override
+  List<Object?> get props => [
+        status,
+        code,
+        message,
+        source,
+        author,
+        title,
+        description,
+        url,
+        urlToImage,
+        publishedAt,
+        content,
+      ];
 }

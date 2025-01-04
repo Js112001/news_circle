@@ -4,6 +4,7 @@ import 'package:news_circle/modules/news/data/models/source_model.dart';
 import 'package:news_circle/modules/news/domain/entities/article_entity.dart';
 
 class ArticleResponseModel extends ArticleEntity {
+  final int? id;
   final String? status;
   final String? code;
   final String? message;
@@ -17,6 +18,7 @@ class ArticleResponseModel extends ArticleEntity {
   final String? content;
 
   ArticleResponseModel({
+    this.id,
     this.status,
     this.code,
     this.message,
@@ -29,6 +31,7 @@ class ArticleResponseModel extends ArticleEntity {
     this.publishedAt,
     this.content,
   }) : super(
+          id: id,
           status: status,
           code: code,
           message: message,
@@ -42,7 +45,6 @@ class ArticleResponseModel extends ArticleEntity {
           content: content,
         );
 
-
   factory ArticleResponseModel.fromRawJson(String str) =>
       ArticleResponseModel.fromJson(json.decode(str));
 
@@ -50,6 +52,7 @@ class ArticleResponseModel extends ArticleEntity {
 
   factory ArticleResponseModel.fromJson(Map<String, dynamic> json) =>
       ArticleResponseModel(
+        id: json["id"],
         status: json["status"],
         code: json["code"],
         message: json["message"],
@@ -68,6 +71,7 @@ class ArticleResponseModel extends ArticleEntity {
       );
 
   Map<String, dynamic> toJson() => {
+        "id": id,
         "status": status,
         "code": code,
         "message": message,
@@ -82,6 +86,7 @@ class ArticleResponseModel extends ArticleEntity {
       };
 
   ArticleEntity toEntity() => ArticleEntity(
+        id: id,
         status: status,
         code: code,
         message: message,
