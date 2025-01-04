@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_circle/core/routes/app_navigator.dart';
 import 'package:news_circle/modules/news/domain/entities/article_entity.dart';
+import 'package:news_circle/modules/news/presentation/blocs/home_bloc.dart';
 import 'package:news_circle/modules/news/presentation/views/article_web_view.dart';
 import 'package:news_circle/modules/news/presentation/views/home_view.dart';
 import 'package:news_circle/utils/constants.dart';
@@ -27,6 +29,7 @@ class ArticleDetailView extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
+              BlocProvider.of<HomeBloc>(context).add(InitialEvent());
               AppNavigator.pushPathReplacement(context, HomeView.route);
             },
             icon: Icon(

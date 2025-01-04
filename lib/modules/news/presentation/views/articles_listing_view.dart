@@ -55,6 +55,7 @@ class _ArticlesListingViewState extends State<ArticlesListingView> {
         actions: [
           IconButton(
             onPressed: () {
+              BlocProvider.of<HomeBloc>(context).add(InitialEvent());
               AppNavigator.pushPathReplacement(context, HomeView.route);
             },
             icon: Icon(
