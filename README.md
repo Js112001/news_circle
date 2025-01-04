@@ -1,16 +1,29 @@
-# news_circle
+# News Circle
 
-A new Flutter project.
+### Flutter Version: 3.27.1
 
-## Getting Started
+## Architecture
 
-This project is a starting point for a Flutter application.
+I used Clean Architecture as app architecture. I choose this architecture due to its core implementation of S.O.L.I.D principles and repository pattern. Clean Architecture seperates client view (presentation layer) and business logic (data layer) with an intermidiary (domain layer) to communicate between them. Domain layer exposes high-level functions and abstracts their low-level implementation from client.
 
-A few resources to get you started if this is your first Flutter project:
+## State Management
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+I used Bloc (Business Logic Component) as State management tool with [flutter_bloc](https://pub.dev/packages/flutter_bloc). Bloc facilitates the separation of presentation and business logic, making your Flutter applications more scalable, testable, and maintainable. It leverages the power of reactive programming using Streams.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Steps to run the app
+
+Step 1: Ensure that you use Flutter version 3.27.1<br/>
+Step 2: Add your [News Api](https://newsapi.org/) key in .env.example<br/>
+Step 3: Edit file name (.env.example) to (.env)<br/>
+Step 4: Run the app<br/>
+
+## Planned Features
+
+- Add feature to save articles offline
+- Add settings/preferences to change theme & font size
+
+## Demo
+
+https://github.com/user-attachments/assets/3c209278-ae37-4527-8dc5-4e414e2497db
+
+
