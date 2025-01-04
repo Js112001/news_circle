@@ -65,25 +65,30 @@ class ArticleDetailView extends StatelessWidget {
                   ),
             ),
           ),
-          if (article.url != null && article.url!.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        article.source?.name ?? 'Unknown Source',
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                      Text(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      article.source?.name ?? 'Unknown Source',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.sizeOf(context).width / 2,
+                      child: Text(
                         'Author: ${article.author ?? 'Unknown'}',
+                        softWrap: true,
+                        maxLines: 2,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
+                ),
+                if (article.url != null && article.url!.isNotEmpty)
                   TextButton(
                     onPressed: () {
                       AppNavigator.pushPath(
@@ -103,9 +108,9 @@ class ArticleDetailView extends StatelessWidget {
                           ),
                     ),
                   ),
-                ],
-              ),
-            )
+              ],
+            ),
+          )
         ],
       ),
     );
