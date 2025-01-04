@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_circle/modules/news/domain/entities/article_entity.dart';
 
-class NewsCardWidget extends StatelessWidget {
+class NewsCardWidget extends StatefulWidget {
   const NewsCardWidget({
     super.key,
     required this.article,
@@ -14,9 +14,14 @@ class NewsCardWidget extends StatelessWidget {
   final void Function()? onTap;
 
   @override
+  State<NewsCardWidget> createState() => _NewsCardWidgetState();
+}
+
+class _NewsCardWidgetState extends State<NewsCardWidget> {
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
@@ -40,7 +45,7 @@ class NewsCardWidget extends StatelessWidget {
                 width: 100,
                 height: 120,
                 child: Image.network(
-                  article.urlToImage ?? '',
+                  widget.article.urlToImage ?? '',
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return const Icon(Icons.image);
@@ -53,28 +58,45 @@ class NewsCardWidget extends StatelessWidget {
                   spacing: 8,
                   children: [
                     Text(
-                      article.title ?? 'Unknown Title',
+                      widget.article.title ?? 'Unknown Title',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: isDisabled
+                            color: widget.isDisabled
                                 ? Theme.of(context).colorScheme.secondary
                                 : null,
                           ),
                     ),
                     Text(
-                      article.description ?? 'Description Not Available',
+                      widget.article.description ?? 'Description Not Available',
                       maxLines: 2,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: isDisabled
+                            color: widget.isDisabled
                                 ? Theme.of(context).colorScheme.secondary
                                 : null,
                           ),
                     ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.bookmark_border),
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          widget.article.source?.name ??
+                              widget.article.author ??
+                              'Unknown Source',
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        IconButton(
+                          style: ButtonStyle(
+                            foregroundColor: WidgetStatePropertyAll(
+                              widget.isDisabled
+                                  ? Theme.of(context).colorScheme.secondary
+                                  : Theme.of(context).colorScheme.onPrimary,
+                            ),
+                          ),
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.bookmark_border,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

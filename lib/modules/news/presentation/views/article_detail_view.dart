@@ -66,26 +66,44 @@ class ArticleDetailView extends StatelessWidget {
             ),
           ),
           if (article.url != null && article.url!.isNotEmpty)
-            Align(
-              alignment: Alignment.bottomRight,
-              child: TextButton(
-                onPressed: () {
-                  AppNavigator.pushPath(
-                    context,
-                    ArticleWebView.route,
-                    extra: {
-                      'url': article.url,
-                    },
-                  );
-                },
-                child: Text(
-                  StringConstants.readMore,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontSize: 18,
-                        decoration: TextDecoration.underline,
-                        color: Theme.of(context).colorScheme.onPrimary,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        article.source?.name ?? 'Unknown Source',
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
-                ),
+                      Text(
+                        'Author: ${article.author ?? 'Unknown'}',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      AppNavigator.pushPath(
+                        context,
+                        ArticleWebView.route,
+                        extra: {
+                          'url': article.url,
+                        },
+                      );
+                    },
+                    child: Text(
+                      StringConstants.readMore,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontSize: 18,
+                            decoration: TextDecoration.underline,
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
+                    ),
+                  ),
+                ],
               ),
             )
         ],
