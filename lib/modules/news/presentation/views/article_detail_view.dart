@@ -3,6 +3,7 @@ import 'package:news_circle/core/routes/app_navigator.dart';
 import 'package:news_circle/modules/news/domain/entities/article_entity.dart';
 import 'package:news_circle/modules/news/presentation/views/article_web_view.dart';
 import 'package:news_circle/modules/news/presentation/views/home_view.dart';
+import 'package:news_circle/utils/constants.dart';
 import 'package:news_circle/utils/extensions.dart';
 
 class ArticleDetailView extends StatelessWidget {
@@ -51,14 +52,14 @@ class ArticleDetailView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
-              article.title ?? 'No Title',
+              article.title ?? StringConstants.noTitle,
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
-              article.content ?? 'No Content Available',
+              article.content ?? StringConstants.noContentAvailable,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Colors.white70,
                   ),
@@ -78,7 +79,7 @@ class ArticleDetailView extends StatelessWidget {
                   );
                 },
                 child: Text(
-                  'Read more',
+                  StringConstants.readMore,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontSize: 18,
                         decoration: TextDecoration.underline,

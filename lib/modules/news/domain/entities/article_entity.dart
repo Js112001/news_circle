@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:news_circle/modules/news/domain/entities/source_entity.dart';
 
@@ -56,40 +55,4 @@ class ArticleEntity {
         content: content ?? this.content,
       );
 
-  factory ArticleEntity.fromRawJson(String str) =>
-      ArticleEntity.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory ArticleEntity.fromJson(Map<String, dynamic> json) => ArticleEntity(
-        status: json["status"],
-        code: json["code"],
-        message: json["message"],
-        source: json["source"] == null
-            ? null
-            : SourceEntity.fromJson(json["source"]),
-        author: json["author"],
-        title: json["title"],
-        description: json["description"],
-        url: json["url"],
-        urlToImage: json["urlToImage"],
-        publishedAt: json["publishedAt"] == null
-            ? null
-            : DateTime.parse(json["publishedAt"]),
-        content: json["content"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "status": status,
-        "code": code,
-        "message": message,
-        "source": source?.toJson(),
-        "author": author,
-        "title": title,
-        "description": description,
-        "url": url,
-        "urlToImage": urlToImage,
-        "publishedAt": publishedAt?.toIso8601String(),
-        "content": content,
-      };
 }

@@ -93,7 +93,8 @@ class _ArticlesListingViewState extends State<ArticlesListingView> {
                         var isDisabled = articles[index].content == null ||
                             articles[index].content == '[Removed]';
                         return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
                           child: NewsCardWidget(
                             onTap: isDisabled
                                 ? null
@@ -117,16 +118,28 @@ class _ArticlesListingViewState extends State<ArticlesListingView> {
                 ],
               ),
             );
+          } else if (state is GetArticlesFailureState) {
+            return RetryWidget(
+              onRetry: () {
+                BlocProvider.of<HomeBloc>(context).add(
+                  GetArticleEvent(
+                    category: widget.articleCategory.toCategoryString(),
+                  ),
+                );
+              },
+              label: state.message,
+            );
+          } else {
+            return RetryWidget(
+              onRetry: () {
+                BlocProvider.of<HomeBloc>(context).add(
+                  GetArticleEvent(
+                    category: widget.articleCategory.toCategoryString(),
+                  ),
+                );
+              },
+            );
           }
-          return RetryWidget(
-            onRetry: () {
-              BlocProvider.of<HomeBloc>(context).add(
-                GetArticleEvent(
-                  category: widget.articleCategory.toCategoryString(),
-                ),
-              );
-            },
-          );
         },
       ),
     );

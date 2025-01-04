@@ -2,14 +2,14 @@ import 'dart:convert';
 
 import 'package:news_circle/modules/news/domain/entities/source_entity.dart';
 
-class SourceModel {
+class SourceModel extends SourceEntity {
   final String? id;
   final String? name;
 
   SourceModel({
     this.id,
     this.name,
-  });
+  }) : super(id: id, name: name);
 
   SourceModel copyWith({
     String? id,

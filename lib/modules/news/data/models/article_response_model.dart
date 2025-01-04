@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:news_circle/modules/news/data/models/source_model.dart';
 import 'package:news_circle/modules/news/domain/entities/article_entity.dart';
 
-class ArticleResponseModel {
+class ArticleResponseModel extends ArticleEntity {
   final String? status;
   final String? code;
   final String? message;
@@ -28,34 +28,20 @@ class ArticleResponseModel {
     this.urlToImage,
     this.publishedAt,
     this.content,
-  });
+  }) : super(
+          status: status,
+          code: code,
+          message: message,
+          source: source,
+          author: author,
+          title: title,
+          description: description,
+          urlToImage: urlToImage,
+          url: url,
+          publishedAt: publishedAt,
+          content: content,
+        );
 
-  ArticleResponseModel copyWith({
-    String? status,
-    String? code,
-    String? message,
-    SourceModel? source,
-    String? author,
-    String? title,
-    String? description,
-    String? url,
-    String? urlToImage,
-    DateTime? publishedAt,
-    String? content,
-  }) =>
-      ArticleResponseModel(
-        status: status ?? this.status,
-        code: code ?? this.code,
-        message: message ?? this.message,
-        source: source ?? this.source,
-        author: author ?? this.author,
-        title: title ?? this.title,
-        description: description ?? this.description,
-        url: url ?? this.url,
-        urlToImage: urlToImage ?? this.urlToImage,
-        publishedAt: publishedAt ?? this.publishedAt,
-        content: content ?? this.content,
-      );
 
   factory ArticleResponseModel.fromRawJson(String str) =>
       ArticleResponseModel.fromJson(json.decode(str));

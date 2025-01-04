@@ -69,6 +69,13 @@ class NewsCardWidget extends StatelessWidget {
                                 : null,
                           ),
                     ),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.bookmark_border),
+                      ),
+                    ),
                   ],
                 ),
               ),

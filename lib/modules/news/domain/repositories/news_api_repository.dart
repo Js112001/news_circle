@@ -1,5 +1,5 @@
-import 'package:news_circle/modules/news/domain/entities/article_entity.dart';
+import 'package:news_circle/modules/news/domain/entities/get_articles_response_entity.dart';
 
 abstract class NewsApiRepository {
-  Future<List<ArticleEntity>> getArticles({String? category, int? page});
+  Future<GetArticlesResponseEntity> getArticles({String? category, int? page});
 }

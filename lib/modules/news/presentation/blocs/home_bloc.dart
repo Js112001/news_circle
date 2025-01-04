@@ -27,16 +27,20 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     } else {
       emit(GetArticleSuccessState(articles: [], isPaginated: true));
     }
-    final result = await _getArticlesUseCase(
-      params: ArticleRequestEntity(
-        category: event.category,
-        page: event.page,
-      ),
-    );
-    if (result.length == 1 && result.first.status == 'error') {
-      emit(GetArticlesFailureState(result.first.message ?? 'Unexpected Error'));
-    } else {
-      emit(GetArticleSuccessState(articles: result, isPaginated: false));
+    try {
+      final result = await _getArticlesUseCase(
+        params: ArticleRequestEntity(
+          category: event.category,
+          page: event.page,
+        ),
+      );
+
+      emit(GetArticleSuccessState(
+        articles: result.articles,
+        isPaginated: false,
+      ));
+    } catch (e) {
+      emit(GetArticlesFailureState(e.toString()));
     }
   }
 }

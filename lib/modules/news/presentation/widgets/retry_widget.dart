@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_circle/utils/constants.dart';
 
 class RetryWidget extends StatelessWidget {
   const RetryWidget({
@@ -26,7 +27,8 @@ class RetryWidget extends StatelessWidget {
             ),
           ),
           Text(
-            label ?? "Something went wrong. Try again",
+            label ?? StringConstants.unknownErrorMessage,
+            textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ],
