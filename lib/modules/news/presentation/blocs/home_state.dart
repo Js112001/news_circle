@@ -30,21 +30,3 @@ class GetArticlesFailureState extends HomeState {
   @override
   List<Object?> get props => [message];
 }
-
-class SavedArticleSuccessState extends HomeState {
-  final String message;
-
-  SavedArticleSuccessState(this.message);
-
-  @override
-  List<Object?> get props => [message];
-}
-
-class SavedArticleFailureState extends HomeState {
-  final String message;
-
-  SavedArticleFailureState(this.message);
-
-  @override
-  List<Object?> get props => [message];
-}

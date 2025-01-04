@@ -1,6 +1,5 @@
-import 'package:equatable/equatable.dart';
 
-class SourceEntity extends Equatable {
+class SourceEntity {
   final String? id;
   final String? name;
 
@@ -17,7 +16,4 @@ class SourceEntity extends Equatable {
         id: id ?? this.id,
         name: name ?? this.name,
       );
-
-  @override
-  List<Object?> get props => [id];
 }

@@ -19,26 +19,3 @@ class GetArticleEvent extends HomeEvent {
   @override
   List<Object?> get props => [category, page];
 }
-
-class SaveArticleEvent extends HomeEvent {
-  final ArticleEntity article;
-
-  SaveArticleEvent({required this.article});
-
-  @override
-  List<Object?> get props => [article];
-}
-
-class RemoveSavedArticleEvent extends HomeEvent {
-  final ArticleEntity article;
-
-  RemoveSavedArticleEvent({required this.article});
-
-  @override
-  List<Object?> get props => [article];
-}
-
-class GetSavedArticleEvent extends HomeEvent {
-  @override
-  List<Object?> get props => [];
-}
