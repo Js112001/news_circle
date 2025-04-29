@@ -22,9 +22,11 @@ class NewsApiServiceImpl extends NewsApiService {
   }) async {
     var queryParameters = {
       "country": "us",
-      "apiKey": "${dotenv.env['NEWS_API_KEY']}",
       "pageSize": 10,
       "page": '$page',
+    };
+    var headers = {
+      'x-api-key': "${dotenv.env['NEWS_API_KEY']}",
     };
 
     if (category != null && category != 'all') {
@@ -33,7 +35,9 @@ class NewsApiServiceImpl extends NewsApiService {
     final response = await _baseNetwork.sendRequest(
       endpoint: 'top-headlines',
       method: NetworkRequestMethod.get,
-      queryParameters: queryParameters, fromJson: (data) =>
+      queryParameters: queryParameters,
+      headers: headers,
+      fromJson: (data) =>
         GetArticlesResponseModel.fromJson(data),
     );
 

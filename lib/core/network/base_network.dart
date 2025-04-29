@@ -14,6 +14,7 @@ class BaseNetwork {
     required String endpoint,
     required T Function(dynamic) fromJson,
     Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? headers,
   }) async {
     late Response response;
     try {
@@ -22,6 +23,7 @@ class BaseNetwork {
           response = await _dio.get(
             '${StringConstants.baseNewsApiUrl}/$endpoint',
             queryParameters: queryParameters,
+            options: Options(headers: headers)
           );
         case NetworkRequestMethod.post:
           response = await _dio.post(
